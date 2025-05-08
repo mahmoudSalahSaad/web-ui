@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_task/core/extensions/num_extensions.dart';
-import 'package:flutter_web_task/core/responsive/responsive_layout.dart';
 
 import '../theme/app_colors.dart';
-import '../theme/text_styles.dart';
 
 class DesktopAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final String title;
+  final Widget title;
   final List<Widget>? actions;
   final Widget? leading;
   final bool centerTitle;
@@ -14,6 +12,7 @@ class DesktopAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Color? backgroundColor;
   final double? elevation;
   final double toolbarHeight;
+  final bool isMobile;
 
   const DesktopAppBar({
     super.key,
@@ -25,6 +24,7 @@ class DesktopAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.backgroundColor,
     this.elevation,
     this.toolbarHeight = 64,
+    required this.isMobile,
   });
 
   @override
@@ -51,7 +51,13 @@ class DesktopAppBar extends StatelessWidget implements PreferredSizeWidget {
               height: toolbarHeight,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: ResponsiveLayout.isMobile() ? 16.w : 80.w,
+                    horizontal: constraints.maxWidth > 1200
+                        ? 120.w
+                        : constraints.maxWidth < 600
+                            ? 16.w
+                            : constraints.maxWidth < 1200
+                                ? 40.w
+                                : 80.w,
                     vertical: 0),
                 child: Row(
                   children: [
@@ -60,18 +66,12 @@ class DesktopAppBar extends StatelessWidget implements PreferredSizeWidget {
                       const SizedBox(width: 16),
                     ],
                     if (!centerTitle) ...[
-                      Text(
-                        title,
-                        style: AppTextStyles.h2(context),
-                      ),
+                      title,
                       const Spacer(),
                     ],
                     if (centerTitle) ...[
                       const Spacer(),
-                      Text(
-                        title,
-                        style: AppTextStyles.h2(context),
-                      ),
+                      title,
                       const Spacer(),
                     ],
                     if (actions != null) ...[

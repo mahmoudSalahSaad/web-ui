@@ -5,6 +5,7 @@ class AssetsManger {
   //Profiles
   static const String profileImage1 =
       "assets/images/profiles/profile_image_1.png";
+  static const String bg1 = "assets/images/profiles/bg1.png";
 
   //
 }

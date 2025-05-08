@@ -17,13 +17,14 @@ class AppColors {
 
   // Background Colors
   static const Color background = Color(0xFF000000);
-  static const Color onBackground = Color(0xFF1C1B1F);
+  static const Color onBackground = Color(0xFF171717);
   
   // Surface Colors
   static const Color surface = Color(0xFFFFFBFE);
   static const Color onSurface = Color(0xFF1C1B1F);
   static const Color surfaceVariant = Color(0xFFE7E0EC);
   static const Color onSurfaceVariant = Color(0xFF49454F);
+  static const Color stateColor = Color(0xFFC25F30);
 
   // Error Colors
   static const Color error = Color(0xFFB3261E);
