@@ -40,17 +40,58 @@ class _SinglePageMobileState extends State<SinglePageMobile>
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 36),
-          child: Wrap(
-            alignment: WrapAlignment.start,
-            spacing: 16,
-            runSpacing: 20,
-            direction: Axis.horizontal,
-            runAlignment: WrapAlignment.start,
-            children: List.generate(
-                8,
-                (index) => TourCard(
-                      isMobile: true,
-                    )),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "   Items",
+                    style: TextStyle(
+                      fontSize: 32,
+                      color: AppColors.onPrimary,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        height: 48,
+                        width: 48,
+                        decoration: BoxDecoration(
+                          color: AppColors.onBackground,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: SvgPicture.asset(
+                            IconManager.slidersSvg,
+                            color: AppColors.onPrimary,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 14,
+                      ),
+                    ],
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Wrap(
+                alignment: WrapAlignment.start,
+                spacing: 16,
+                runSpacing: 20,
+                direction: Axis.horizontal,
+                runAlignment: WrapAlignment.start,
+                children: List.generate(
+                    8,
+                    (index) => TourCard(
+                          isMobile: true,
+                        )),
+              ),
+            ],
           ),
         ),
       ),

@@ -85,7 +85,21 @@ class DesktopAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
             ),
-            if (bottom != null) bottom!,
+            PreferredSize(
+              preferredSize: Size.fromHeight(1),
+              child: Container(
+                  height: 1,
+                  margin: EdgeInsets.symmetric(
+                    horizontal: constraints.maxWidth > 1200
+                        ? 110.w
+                        : constraints.maxWidth < 600
+                            ? 16.w
+                            : constraints.maxWidth < 1200
+                                ? 40.w
+                                : 80.w,
+                  ),
+                  color: AppColors.onPrimaryContainer),
+            )
           ],
         );
       }),

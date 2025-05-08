@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:avatar_stack/animated_avatar_stack.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_web_task/core/theme/app_colors.dart';
 import 'package:flutter_web_task/core/theme/assets_manger.dart';
 import 'package:flutter_web_task/core/theme/icon_manager.dart';
 import 'package:flutter_web_task/core/widgets/web_app_bar.dart';
+import 'package:flutter_web_task/core/widgets/web_button.dart';
 import 'package:flutter_web_task/features/widgets/desktop_tablet_content.dart';
 
 class SinglePageDesktop extends StatefulWidget {
@@ -30,36 +33,111 @@ class _SinglePageDesktopState extends State<SinglePageDesktop>
         backgroundColor: AppColors.background,
         bottom: PreferredSize(
           preferredSize: Size.fromHeight(1),
-          child: Container(height: 1, color: AppColors.onPrimaryContainer),
+          child: LayoutBuilder(builder: (context, constraints) {
+            return Container(
+                height: 1,
+                padding: EdgeInsets.symmetric(
+                    horizontal: constraints.maxWidth > 1200
+                        ? 110.w
+                        : constraints.maxWidth < 600
+                            ? 16.w
+                            : constraints.maxWidth < 1200
+                                ? 40.w
+                                : 80.w),
+                color: AppColors.onPrimaryContainer);
+          }),
         ),
       ),
       backgroundColor: AppColors.background,
       body: SingleChildScrollView(
-        child: LayoutBuilder(builder: (index, constraints) {
-          return Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: constraints.maxWidth > 1200
-                    ? 110.w
-                    : constraints.maxWidth < 600
-                        ? 16.w
-                        : constraints.maxWidth < 1200
-                            ? 40.w
-                            : 80.w,
-                vertical: 36),
-            child: Wrap(
-              alignment: WrapAlignment.start,
-              spacing: 16,
-              runSpacing: 20,
-              direction: Axis.horizontal,
-              runAlignment: WrapAlignment.start,
-              children: List.generate(
-                  8,
-                  (index) => TourCard(
-                        isMobile: false,
-                      )),
-            ),
-          );
-        }),
+        child: Column(
+          children: [
+            LayoutBuilder(builder: (index, constraints) {
+              return Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: constraints.maxWidth > 1200
+                        ? 110.w
+                        : constraints.maxWidth < 600
+                            ? 16.w
+                            : constraints.maxWidth < 1200
+                                ? 40.w
+                                : 80.w,
+                    vertical: 36),
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "   Items",
+                          style: TextStyle(
+                            fontSize: 32,
+                            color: AppColors.onPrimary,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Row(
+                          children: [
+                            Container(
+                              height: 48,
+                              width: 48,
+                              decoration: BoxDecoration(
+                                color: AppColors.onBackground,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: SvgPicture.asset(
+                                  IconManager.slidersSvg,
+                                  color: AppColors.onPrimary,
+                                ),
+                              ),
+                            ),
+                            SizedBox(
+                              width: 14,
+                            ),
+                            Container(
+                              height: 48,
+                              width: 1,
+                              decoration: BoxDecoration(
+                                color: AppColors.onPrimaryContainer,
+                              ),
+                            ),
+                            SizedBox(
+                              width: 14,
+                            ),
+                            DesktopButton(
+                              text: "Add a New Item",
+                              onPressed: () {},
+                              icon: Icons.add,
+                            ),
+                            SizedBox(
+                              width: 28,
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(
+                      height: 32,
+                    ),
+                    Wrap(
+                      alignment: WrapAlignment.start,
+                      spacing: 16,
+                      runSpacing: 20,
+                      direction: Axis.horizontal,
+                      runAlignment: WrapAlignment.center,
+                      children: List.generate(
+                          8,
+                          (index) => TourCard(
+                                isMobile: false,
+                              )),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ],
+        ),
       ),
     );
   }
@@ -75,8 +153,8 @@ class TourCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: isMobile ? 343.w : 244,
-      height: isMobile ? 314.h : 320,
+      width: isMobile ? 433 : 244,
+      height: isMobile ? 394 : 320,
       decoration: BoxDecoration(
         color: AppColors.onBackground,
         borderRadius: BorderRadius.circular(15),
@@ -88,21 +166,22 @@ class TourCard extends StatelessWidget {
             children: [
               Container(
                 width: double.infinity,
-                height: 182,
+                height: isMobile ? 242 : 182,
                 decoration: BoxDecoration(
                   color: AppColors.onPrimaryContainer,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(15),
                       topRight: Radius.circular(15)),
                   image: DecorationImage(
-                    image: AssetImage(AssetsManger.bg1),
+                    image: AssetImage(
+                        "assets/images/profiles/bg${Random().nextInt(3) + 1}.png"),
                     fit: BoxFit.cover,
                   ),
                 ),
               ),
               Container(
                 width: double.infinity,
-                height: 182,
+                height: isMobile ? 242 : 182,
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
@@ -178,7 +257,7 @@ class TourCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Item title",
+                    "Item title here that is long  and needs to be truncated",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(

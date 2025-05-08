@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_web_task/core/theme/app_colors.dart';
-import '../theme/text_styles.dart';
 
 class DesktopButton extends StatefulWidget {
   final String text;
@@ -36,44 +35,44 @@ class _DesktopButtonState extends State<DesktopButton> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return MouseRegion(
       onEnter: (_) => setState(() => _isHovered = true),
       onExit: (_) => setState(() => _isHovered = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         width: widget.width,
-        transform:      Matrix4.identity()
-                                    ..scale(_isHovered ? 1.05 : 1.0),
+        transform: Matrix4.identity()..scale(_isHovered ? 1.05 : 1.0),
         height: widget.height,
         child: widget.isOutlined
             ? OutlinedButton(
                 onPressed: widget.isLoading ? null : widget.onPressed,
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: widget.textColor ?? theme.primaryColor,
-                  textStyle: AppTextStyles.buttonLarge(context).copyWith(
-                    color: widget.textColor ?? theme.primaryColor,
-                  ),
+                  foregroundColor: AppColors.primary,
+                  textStyle: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: "inter"),
                   side: BorderSide(
                     color: widget.textColor ?? theme.primaryColor,
                     width: 2,
                   ),
-                  backgroundColor: _isHovered 
-                      ? (widget.backgroundColor ?? theme.primaryColor).withOpacity(0.1)
-                      : Colors.transparent,
+                  backgroundColor: AppColors.primary,
                 ),
                 child: _buildButtonContent(),
               )
             : ElevatedButton.icon(
-                
                 label: _buildButtonContent(),
                 onPressed: widget.isLoading ? null : widget.onPressed,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: _isHovered ? AppColors.primary  : null,
-                  foregroundColor: widget.textColor ?? Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  backgroundColor:
+                      _isHovered ? AppColors.stateColor : AppColors.primary,
+                  foregroundColor: widget.textColor ?? AppColors.background,
                   elevation: _isHovered ? 4 : 2,
                 ),
-               
               ),
       ),
     );
@@ -95,11 +94,18 @@ class _DesktopButtonState extends State<DesktopButton> {
       return Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(widget.icon, size: 20),
+          Icon(
+            widget.icon,
+            size: 20,
+            color: !_isHovered ? AppColors.background : AppColors.onPrimary,
+          ),
           const SizedBox(width: 8),
           Text(
             widget.text,
-            style: AppTextStyles.buttonLarge(context).copyWith(color: widget.textColor),
+            style: TextStyle(
+                fontFamily: "inter",
+                fontSize: 14,
+                color: _isHovered ? AppColors.onPrimary : widget.textColor),
           ),
         ],
       );
@@ -107,9 +113,10 @@ class _DesktopButtonState extends State<DesktopButton> {
 
     return Text(
       widget.text,
-      style: AppTextStyles.buttonLarge(context).copyWith(color: _isHovered ? AppColors.onPrimary :
-       widget.textColor),
+      style: TextStyle(
+          fontFamily: "inter",
+          fontSize: 14,
+          color: _isHovered ? AppColors.onPrimary : widget.textColor),
     );
   }
 }
-

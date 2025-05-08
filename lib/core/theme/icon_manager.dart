@@ -4,4 +4,5 @@ class IconManager {
   static const String menuSvg = 'assets/images/icons/menu.svg';
   static const String moreSvg = 'assets/images/icons/more-Horizontal.svg';
   static const String calendarSvg = 'assets/images/icons/calendar.svg';
+  static const String slidersSvg = 'assets/images/icons/sliders.svg';
 }
