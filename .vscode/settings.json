@@ -1,0 +1,14 @@
+{
+    // ...
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "always" , 
+        "source.organizeImports": "always"
+    },
+    "[dart]": {
+    "editor.defaultFormatter": "Dart-Code.dart-code",
+    "editor.formatOnSave": true,
+},
+"cmake.sourceDirectory": "C:/Users/mahoud salah/Desktop/shafi/linux",
+
+
+}
